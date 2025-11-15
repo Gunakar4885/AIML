@@ -128,7 +128,11 @@ function speakListenToggle(){ if(spellState.listening){ stopSpellListen(); } els
 
 function ensureRec(){
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SR){ alert('SpeechRecognition not supported in this browser. Try Chrome.'); return null; }
+  if(!SR){
+    const fb=qs('#spellFeedback'); if(fb){ fb.textContent='SpeechRecognition not supported. Use Chrome on desktop or Android.'; fb.className='feedback'; }
+    const ms=qs('#micStatusSpell'); if(ms){ ms.textContent='Mic: unsupported'; }
+    return null;
+  }
   if(!spellState.rec){ const r=new SR(); r.lang='en-US'; r.interimResults=false; r.maxAlternatives=1; spellState.rec=r; }
   return spellState.rec;
 }
@@ -171,8 +175,15 @@ function startSpellListen(){
       if(overlay){ overlay.style.display='flex'; if(finalEl) finalEl.textContent=String(lastScore); if(centerBtn){ centerBtn.onclick=()=>{ overlay.style.display='none'; loadWord(); startSpellListen(); }; } }
     }
   };
+  rec.onerror=(ev)=>{
+    const fb=qs('#spellFeedback'); if(fb){ fb.textContent=`Mic error: ${ev && ev.error ? ev.error : 'unknown'}`; fb.className='feedback'; }
+    const ms=qs('#micStatusSpell'); if(ms){ ms.textContent='Mic: error'; }
+  };
   rec.onend=()=>{ if(spellState.listening){ rec.start(); } };
-  try{ rec.start(); }catch{}
+  try{ rec.start(); }catch(e){
+    const fb=qs('#spellFeedback'); if(fb){ fb.textContent=`Cannot start mic: ${e && e.message ? e.message : e}`; fb.className='feedback'; }
+    const ms=qs('#micStatusSpell'); if(ms){ ms.textContent='Mic: error'; }
+  }
 }
 function stopSpellListen(){ const rec=spellState.rec; spellState.listening=false; qs('#btnSpellListen').textContent='Start Listening'; qs('#micStatusSpell').textContent='Mic: off'; if(rec){ try{rec.stop();}catch{} } }
 
@@ -271,7 +282,16 @@ function drawSkySetup(){
 }
 
 qs('#btnShoutStart').addEventListener('click', async ()=>{
-  if(!shout.mic){ try{ await startMic(); say('Mic started'); }catch(e){ alert('Mic permission needed.'); return; } drawSkySetup(); } else { stopMic(); say('Mic stopped'); }
+  if(!shout.mic){
+    try{
+      await startMic(); say('Mic started');
+      drawSkySetup();
+    }catch(e){
+      const fb=qs('#shoutFeedback'); if(fb){ fb.textContent=`Mic blocked: ${e && (e.name||e.message) ? ((e.name||'Error')+': '+(e.message||'')) : 'permission denied'}`; fb.className='feedback'; }
+      const ms=qs('#micStatusShout'); if(ms){ ms.textContent='Mic: blocked'; }
+      return;
+    }
+  } else { stopMic(); say('Mic stopped'); }
 });
 
 async function startShoutGame(){ shout.height=0; }
