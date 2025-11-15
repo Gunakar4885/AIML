@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0.1">
+  <category>
+    <pattern>HELLO</pattern>
+    <template>Hi! Ready to play Spell &amp; Shout?</template>
+  </category>
+  <category>
+    <pattern>HI</pattern>
+    <template>Hello! Say HINT if you want help.</template>
+  </category>
+  <category>
+    <pattern>HINT</pattern>
+    <template>
+      <random>
+        <li>Try sounding it out. The word starts with: {first_letter}</li>
+        <li>Clap the syllables. You can do it! The last letter is: {last_letter}</li>
+        <li>Think of a rhyme for the word: {rhyme}</li>
+      </random>
+    </template>
+  </category>
+  <category>
+    <pattern>NEXT WORD</pattern>
+    <template>Okay! Loading the next word...</template>
+  </category>
+  <category>
+    <pattern>ENCOURAGE</pattern>
+    <template>
+      <random>
+        <li>Great effort! Keep going!</li>
+        <li>Nice focus. You are improving!</li>
+        <li>Awesome! I believe in you!</li>
+      </random>
+    </template>
+  </category>
+  <category>
+    <pattern>I FEEL *</pattern>
+    <template>
+      <random>
+        <li>Thanks for sharing. Let’s take a breath together. In… out… Want Relief Mode?</li>
+        <li>It’s okay to feel that way. You’re safe here. Say ENCOURAGE for a pep talk.</li>
+        <li>Your feelings matter. After this round, try a calm break.</li>
+      </random>
+    </template>
+  </category>
+  <category>
+    <pattern>GOOD JOB</pattern>
+    <template>
+      <random>
+        <li>High five! ✋</li>
+        <li>Yes! Streak: {streak}</li>
+        <li>You’re on fire! 🔥</li>
+      </random>
+    </template>
+  </category>
+  <category>
+    <pattern>WHAT IS THE WORD</pattern>
+    <template>The current word is: {word}</template>
+  </category>
+</aiml>

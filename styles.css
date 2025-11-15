@@ -1,0 +1,74 @@
+*{box-sizing:border-box}
+:root{
+  --bg1:#6a5af9; --bg2:#ff6ac1; --bg3:#ffb86c;
+  --card:#ffffffee; --text:#1f1b2d; --muted:#6b6b8a;
+  --primary:#7c3aed; --secondary:#0ea5e9; --ok:#16a34a; --bad:#ef4444;
+  --shadow:0 20px 40px rgba(31,27,45,.2);
+}
+html,body{height:100%;}
+body{
+  margin:0; font-family:Inter,system-ui,Segoe UI,Arial,sans-serif; color:var(--text);
+  background:radial-gradient(1200px 800px at 20% 10%, rgba(255,255,255,.12), transparent 60%), linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+  overflow-x:hidden;
+}
+#bg{position:fixed; inset:0; background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"><defs><radialGradient id="g" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="white" stop-opacity="0.12"/><stop offset="100%" stop-color="white" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="180" fill="url(%23g)"/><circle cx="900" cy="120" r="120" fill="url(%23g)"/><circle cx="1000" cy="600" r="200" fill="url(%23g)"/></svg>'); opacity:.6; pointer-events:none}
+.topbar{position:sticky; top:0; display:flex; align-items:center; justify-content:space-between; padding:18px 22px; backdrop-filter:blur(12px); background:linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,.1)); border-bottom:1px solid rgba(255,255,255,.35)}
+.topbar h1{font-family:'Baloo 2', cursive; margin:0; font-size:28px}
+.controls{display:flex; gap:8px}
+.screen{display:none; padding:24px}
+.screen.active{display:block}
+.hero{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px; margin:22px 0}
+.card{background:var(--card); border-radius:20px; box-shadow:var(--shadow); padding:20px; backdrop-filter:blur(6px)}
+.game-card .card-visual{height:160px; border-radius:16px; margin-bottom:14px; position:relative; overflow:hidden}
+.card-visual.spell{background:linear-gradient(135deg,#6366f1,#a855f7);}
+.card-visual.spell::after{content:""; position:absolute; inset:0; background:repeating-linear-gradient(45deg,rgba(255,255,255,.12) 0 6px, transparent 6px 12px)}
+.card-visual.shout{background:linear-gradient(135deg,#06b6d4,#22d3ee)}
+.card h2{font-family:'Baloo 2', cursive; margin:6px 0 4px}
+.card p{margin:0 0 12px; color:var(--muted)}
+.btn{appearance:none; border:0; padding:12px 16px; border-radius:14px; font-weight:600; cursor:pointer; transition:transform .08s ease, box-shadow .2s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--primary); color:white; box-shadow:0 10px 20px rgba(124,58,237,.35)}
+.btn.secondary{background:var(--secondary); color:white; box-shadow:0 10px 20px rgba(14,165,233,.35)}
+.btn.ghost{background:rgba(255,255,255,.6)}
+.btn.small{padding:6px 10px; border-radius:10px}
+
+.hud{display:flex; gap:10px; margin-bottom:12px}
+.badge{background:rgba(255,255,255,.7); padding:8px 12px; border-radius:999px; font-weight:600; box-shadow:var(--shadow)}
+.badge.mic{padding-left:34px; position:relative}
+.badge.mic::before{content:"🎙️"; position:absolute; left:10px}
+
+.stage{position:relative; background:rgba(255,255,255,.4); border-radius:22px; padding:18px; min-height:380px; box-shadow:var(--shadow)}
+.spell-stage{display:grid; place-items:center; overflow:hidden}
+.wall{width:80%; height:180px; background:linear-gradient(180deg,#f4f4f9,#e7e7f5); border-radius:16px; box-shadow:inset 0 0 0 4px rgba(0,0,0,.05), 0 20px 40px rgba(0,0,0,.08); position:relative}
+.wall.crack{background-image:radial-gradient(circle at 50% 50%, rgba(124,58,237,.35), transparent 40%)}
+.word-target{position:absolute; top:24px; font-family:'Baloo 2', cursive; font-size:28px}
+.chips{position:absolute; bottom:28px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center}
+.chips .chip{padding:10px 12px; background:white; border-radius:12px; box-shadow:0 10px 20px rgba(0,0,0,.08); font-weight:700}
+.feedback{position:absolute; inset:auto 0 12px 0; text-align:center; font-weight:800; font-size:18px}
+.feedback.ok{color:var(--ok)}
+.feedback.bad{color:var(--bad)}
+
+.shout-stage{overflow:hidden}
+#sky{width:100%; height:520px; border-radius:16px; background:linear-gradient(180deg,#7dd3fc,#e0f2fe)}
+
+.controls-row{display:flex; gap:10px; margin-top:14px}
+
+#confetti{position:fixed; inset:0; pointer-events:none}
+
+.reduce-motion *{transition:none!important; animation:none!important}
+.caption{position:fixed; left:50%; transform:translateX(-50%); bottom:10px; background:rgba(0,0,0,.55); color:white; padding:6px 10px; border-radius:10px; font-size:14px}
+
+/* Centered overlay for restart */
+.overlay{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.35); border-radius:16px}
+.overlay-card{max-width:260px; text-align:center}
+
+/* Chat panel */
+.chat{position:fixed; right:16px; top:80px; width:340px; height:60vh; background:var(--card); border-radius:16px; box-shadow:var(--shadow); display:flex; flex-direction:column; overflow:hidden; z-index:50}
+.chat-header{padding:10px 12px; font-weight:800; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(0,0,0,.06)}
+.chat-log{flex:1; padding:12px; overflow:auto; display:flex; flex-direction:column; gap:8px}
+.chat-log .msg{padding:8px 10px; border-radius:12px; max-width:85%}
+.chat-log .me{align-self:flex-end; background:#e0f2fe}
+.chat-log .bot{align-self:flex-start; background:#f5f3ff}
+.chat-input{display:flex; gap:8px; padding:10px; border-top:1px solid rgba(0,0,0,.06)}
+.chat-input input{flex:1; padding:10px 12px; border-radius:10px; border:1px solid rgba(0,0,0,.12)}

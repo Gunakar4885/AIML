@@ -1,0 +1,6 @@
+{
+  "beginner": ["cat", "dog", "sun", "ball", "tree", "bird", "fish", "book", "milk", "rain"],
+  "easy": ["apple", "banana", "orange", "purple", "yellow", "green", "happy", "smile", "water", "music"],
+  "medium": ["rocket", "planet", "jungle", "whisper", "silver", "pirate", "puzzle", "galaxy", "castle", "feather"],
+  "hard": ["chocolate", "elephant", "umbrella", "dinosaur", "beautiful", "rhythm", "mountain", "adventure", "butterfly", "language"]
+}

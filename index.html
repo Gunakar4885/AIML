@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spell & Shout — Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="bg"></div>
+  <header class="topbar">
+    <h1>Spell & Shout</h1>
+    <div class="controls">
+      <button id="btnHome" class="btn ghost">Home</button>
+      <button id="btnChat" class="btn ghost" aria-pressed="false">Chat</button>
+      <button id="btnReducedMotion" class="btn ghost" aria-pressed="false">Reduced Motion</button>
+      <button id="btnCaptions" class="btn ghost" aria-pressed="false">Captions</button>
+    </div>
+  </header>
+
+  <main id="screen-home" class="screen active">
+    <section class="hero">
+      <div class="card game-card" id="card-spell">
+        <div class="card-visual spell"></div>
+        <h2>Spell to Pass</h2>
+        <p>Speak the letters to break the wall and move forward.</p>
+        <button id="startSpell" class="btn primary">Play</button>
+      </div>
+      <div class="card game-card" id="card-shout">
+        <div class="card-visual shout"></div>
+        <h2>Shout to Fly</h2>
+        <p>Raise your voice to help the bird soar and escape.</p>
+        <button id="startShout" class="btn secondary">Play</button>
+      </div>
+    </section>
+  </main>
+
+  <main id="screen-spell" class="screen">
+    <section class="hud">
+      <div class="badge">Streak: <span id="spellStreak">0</span></div>
+      <div class="badge">Level: <span id="spellLevel">Beginner</span></div>
+      <div class="badge">Score: <span id="spellScore">0</span></div>
+      <div class="badge">Best: <span id="spellBest">0</span></div>
+      <div class="badge mic" id="micStatusSpell">Mic: off</div>
+    </section>
+    <section class="stage spell-stage">
+      <div class="wall" id="wall"></div>
+      <div class="word-target">
+        <span id="targetWord">word</span>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="feedback" id="spellFeedback"></div>
+      <div id="spellOverlay" class="overlay" style="display:none">
+        <div class="overlay-card card">
+          <h3 style="margin:0 0 6px 0; font-family:'Baloo 2', cursive;">Game Over</h3>
+          <p style="margin:0 0 12px 0;">Score <span id="spellFinalScore">0</span></p>
+          <button id="btnSpellRestartCenter" class="btn">Restart</button>
+        </div>
+      </div>
+    </section>
+    <section class="controls-row">
+      <button id="btnSpellListen" class="btn primary">Start Listening</button>
+      <button id="btnSpellNext" class="btn">Next Word</button>
+      <button id="btnSpellRestart" class="btn" style="display:none">Restart</button>
+      <button id="btnSpellHome" class="btn ghost">Home</button>
+    </section>
+  </main>
+
+  <main id="screen-shout" class="screen">
+    <section class="hud">
+      <div class="badge">Height: <span id="heightVal">0</span>%</div>
+      <div class="badge">Goal: <span>80%</span></div>
+      <div class="badge">Score: <span id="scoreVal">0</span></div>
+      <div class="badge">Best: <span id="bestVal">0</span></div>
+      <div class="badge mic" id="micStatusShout">Mic: off</div>
+    </section>
+    <section class="stage shout-stage">
+      <canvas id="sky" width="1000" height="520" aria-label="Game canvas"></canvas>
+      <div class="feedback" id="shoutFeedback"></div>
+      <div id="shoutOverlay" class="overlay" style="display:none">
+        <div class="overlay-card card">
+          <h3 style="margin:0 0 6px 0; font-family:'Baloo 2', cursive;">Game Over</h3>
+          <p style="margin:0 0 12px 0;">Score <span id="finalScore">0</span></p>
+          <button id="btnShoutRestartCenter" class="btn">Restart</button>
+        </div>
+      </div>
+    </section>
+    <section class="controls-row">
+      <button id="btnShoutStart" class="btn secondary">Start Mic</button>
+      <button id="btnShoutRestart" class="btn" style="display:none">Restart</button>
+      <button id="btnShoutHome" class="btn ghost">Home</button>
+    </section>
+  </main>
+
+  <div id="confetti"></div>
+  <!-- AIML Chat Panel -->
+  <aside id="chatPanel" class="chat" style="display:none">
+    <div class="chat-header">Helper Bot <button id="btnChatClose" class="btn ghost small">×</button></div>
+    <div id="chatLog" class="chat-log" aria-live="polite"></div>
+    <div class="chat-input">
+      <input id="chatText" type="text" placeholder="Type a message (e.g., HINT, NEXT WORD, I FEEL happy)" />
+      <button id="chatSend" class="btn secondary">Send</button>
+    </div>
+  </aside>
+  <audio id="sfxSuccess" src="https://cdn.jsdelivr.net/gh/naptha/tinyfiles@main/sounds/success.mp3" preload="auto"></audio>
+  <audio id="sfxError" src="https://cdn.jsdelivr.net/gh/naptha/tinyfiles@main/sounds/error.mp3" preload="auto"></audio>
+  <audio id="sfxWhoosh" src="https://cdn.jsdelivr.net/gh/naptha/tinyfiles@main/sounds/whoosh.mp3" preload="auto"></audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
